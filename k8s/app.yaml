@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-experiment-tracking-platform
+  labels:
+    app: ml-experiment-tracking-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-experiment-tracking-platform
+  template:
+    metadata:
+      labels:
+        app: ml-experiment-tracking-platform
+    spec:
+      containers:
+        - name: api
+          image: ml-experiment-tracking-platform:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-experiment-tracking-platform
+spec:
+  selector:
+    app: ml-experiment-tracking-platform
+  ports:
+    - port: 80
+      targetPort: 8080
