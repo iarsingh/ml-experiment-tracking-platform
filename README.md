@@ -1,5 +1,12 @@
 # ML Experiment Tracking Platform
 
+## Overview
+
+An in-memory model registry for ML experiments. `POST /models` registers a run, `POST /promote` makes a model the champion, and `GET /champion` returns the current one. Promotion only updates the registry record: `applied` stays false, so nothing is deployed. A `/v1` ops API adds workspaces, tenant isolation, job approval and audit records.
+
+- **Built with:** Python, pytest, GitHub Actions
+- **Scope:** ML engineering lab with tests; runs are held in memory and production apply is refused.
+
 <!-- project-guide:start -->
 ## Project guide
 
